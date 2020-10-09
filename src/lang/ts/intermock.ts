@@ -290,6 +290,16 @@ function processPropertyTypeReference(
       break;
     default:
       const record = (types[normalizedTypeName] as TypeCacheRecord);
+
+      if ((record.node as NodeWithDocs).jsDoc) {
+        const jsDocs = (record.node as NodeWithDocs).jsDoc;
+        if (isAnyJsDocs(jsDocs)) {
+          processJsDocs(
+              node as ts.PropertySignature, output, property, jsDocs, options);
+          return;
+        }
+      }
+
       if (record.kind !== record.aliasedTo) {
         const alias = record.aliasedTo;
         const isPrimitiveType = alias === ts.SyntaxKind.StringKeyword ||

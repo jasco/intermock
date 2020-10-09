@@ -13,7 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/** @mockType {random.uuid} */
+type Uuid = string;
+
 interface FlatPerson {
+  uuid: Uuid;
+
   /** @mockType {name.firstName} */
   fn: string;
 
@@ -22,6 +27,7 @@ interface FlatPerson {
 }
 
 export const expectedMockType = {
+  uuid: 'bfc8cb62-c6ce-4194-a2a5-499320b837eb',
   fn: 'Mabel',
   ln: 'Williamson'
 };
