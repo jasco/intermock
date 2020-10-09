@@ -184,7 +184,7 @@ describe('Intermock TypeScript: Mock tests', () => {
         expectedNamespaced.Person);
   });
 
-  it('should generate mock for mapped tyes', () => {
+  it('should generate mock for mapped types', () => {
     return runTestCase(
         `${__dirname}/test-data/mappedTypes.ts`, 'Person',
         expectedMappedTypes.Person);

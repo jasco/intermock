@@ -102,9 +102,7 @@ function isQuestionToken(
   if (questionToken || isUnionWithNull) {
     if (options.isFixedMode && !options.isOptionalAlwaysEnabled) {
       return true;
-    }
-
-    else if (Math.random() < .5 && !options.isOptionalAlwaysEnabled) {
+    } else if (Math.random() < .5 && !options.isOptionalAlwaysEnabled) {
       return true;
     }
   }
@@ -831,7 +829,6 @@ function traverseInterface(
   }
 
 
-
   // TODO get range from JSDoc
   // TODO given a range of interfaces to generate, add to array. If 1
   // then just return an object
@@ -867,9 +864,9 @@ function processFile(
     propToTraverse?: string) {
   const processNode = (node: ts.Node) => {
     switch (node.kind) {
-      case ts.SyntaxKind.InterfaceDeclaration:
+      case ts.SyntaxKind.InterfaceDeclaration: {
         /**
-         * TODO: Handle interfaces that extend others, via checking hertiage
+         * TODO: Handle interfaces that extend others, via checking heritage
          * clauses
          */
         const p = (node as ts.InterfaceDeclaration).name.text;
@@ -886,7 +883,8 @@ function processFile(
           traverseInterface(node, output, sourceFile, options, types);
         }
         break;
-      case ts.SyntaxKind.TypeAliasDeclaration:
+      }
+      case ts.SyntaxKind.TypeAliasDeclaration: {
         const type = (node as ts.TypeAliasDeclaration).type;
         const path = (node as ts.TypeAliasDeclaration).name.text;
 
@@ -904,7 +902,7 @@ function processFile(
               type, output, sourceFile, options, types, undefined, path);
         }
         break;
-
+      }
       default:
         break;
     }
