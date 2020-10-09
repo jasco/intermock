@@ -767,7 +767,7 @@ function setEnum(
         break;
       case ts.SyntaxKind.StringLiteral:
         output[property] =
-            selectedMember.initializer.getText().replace(/'/g, '');
+            selectedMember.initializer.getText().replace(/^'|^"|'$|"$/g, '');
         break;
       default:
         break;

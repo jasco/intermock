@@ -36,6 +36,18 @@ enum GreatNumbers {
   golden = 1.61
 }
 
+// Intentionally use double quotes in this test case.
+// Disable clang-format using block comment instead of line comment.
+/* clang-format off */
+enum Toy {
+  BEAR = "bear",
+  CAR = "car",
+  BIKE = "bike",
+  BLOCKS = "blocks",
+  PUZZLE = "puzzle"
+}
+/* clang-format on */
+
 interface Person {
   name: string;
   status: Awesomeness;
@@ -43,6 +55,7 @@ interface Person {
   favoriteMusicians: GreatMusicians;
   favoriteNovel: GreatNovels;
   recommendations: GreatNovels[];
+  toys: Toy[];
 }
 
 export const expectedEnum = {
@@ -52,6 +65,7 @@ export const expectedEnum = {
     favoriteNumber: 3.14,
     favoriteMusicians: 'Beethoven',
     favoriteNovel: 1,
-    recommendations: [1, 1, 1]
+    recommendations: [1, 1, 1],
+    toys: ['bike', 'bike', 'bike']
   }
 };
