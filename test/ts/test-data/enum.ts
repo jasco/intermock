@@ -42,6 +42,7 @@ interface Person {
   favoriteNumber: GreatNumbers;
   favoriteMusicians: GreatMusicians;
   favoriteNovel: GreatNovels;
+  recommendations: GreatNovels[];
 }
 
 export const expectedEnum = {
@@ -50,6 +51,7 @@ export const expectedEnum = {
     status: 1,
     favoriteNumber: 3.14,
     favoriteMusicians: 'Beethoven',
-    favoriteNovel: 1
+    favoriteNovel: 1,
+    recommendations: [1, 1, 1]
   }
 };

@@ -439,6 +439,11 @@ function resolveArrayType(
   for (let i = 0; i < arrayRange; i++) {
     if (isPrimitiveType) {
       result.push(generatePrimitive(property, kind, options, ''));
+    } else if (kind === ts.SyntaxKind.TypeReference) {
+      const cache: Output = {};
+      processPropertyTypeReference(
+          node, cache, property, typeName, kind, sourceFile, options, types);
+      result.push(cache[property]);
     } else {
       const cache = {};
       processFile(sourceFile, cache, options, types, typeName);
