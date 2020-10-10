@@ -960,7 +960,7 @@ function gatherTypes(sourceFile: ts.SourceFile|ts.ModuleBlock) {
 }
 
 /**
- * Fromat output based on the specified output type in the options object.
+ * Format output based on the specified output type in the options object.
  *
  * @param output The object outputted by Intermock after all types are mocked
  * @param options Intermock general options object
