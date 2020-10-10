@@ -25,10 +25,11 @@ interface Order {
 
 interface User {
   orders: Order[];
+  // Disable linting in order to test generic syntax
   /* tslint:disable */
   moreOrders: Array<Order>;
-  finalOrders: IterableArray<Order>;
   /* tslint:enable */
+  finalOrders: IterableArray<Order>;
   bestFriends: string[];
 }
 

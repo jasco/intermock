@@ -440,9 +440,30 @@ function resolveArrayType(
     if (isPrimitiveType) {
       result.push(generatePrimitive(property, kind, options, ''));
     } else if (kind === ts.SyntaxKind.TypeReference) {
+      // ts.isTypeReferenceNode appears as if it should be public. When it
+      // becomes available in the type def it might make a better condition.
       const cache: Output = {};
-      processPropertyTypeReference(
-          node, cache, property, typeName, kind, sourceFile, options, types);
+      // If this node is a generic array, the node associated with the template
+      // argument needs to be passed for lookup. For example, Array<Order>
+      // should pass the node associated with the Order class. Passing the
+      // Array<Order> node and type name will result in an infinite recursion.
+      const fullTypeName = 'type' in node && node.type?.getText() || '';
+      // TODO What type is node supposed to be to get node.type?
+      // TODO What type is node.type supposed to be to get typeArguments?
+      if (fullTypeName.startsWith('Array<') ||
+          fullTypeName.startsWith('IterableArray<') &&
+              ((node as ts.OptionalTypeNode)?.type as ts.TypeReferenceNode)
+                  ?.typeArguments?.length) {
+        // Watch typescript interface for ts.hasTypeArguments
+        // tslint:disable-next-line:no-any
+        const arrayTypeNode = (node as any).type.typeArguments[0];
+        processPropertyTypeReference(
+            arrayTypeNode, cache, property, typeName, kind, sourceFile, options,
+            types);
+      } else {
+        processPropertyTypeReference(
+            node, cache, property, typeName, kind, sourceFile, options, types);
+      }
       result.push(cache[property]);
     } else {
       const cache = {};
